@@ -72,7 +72,7 @@ void Error_Handler(void);
 #define MPMK_Pin GPIO_PIN_13
 #define MPMK_GPIO_Port GPIOB
 #define MPMK_EXTI_IRQn EXTI15_10_IRQn
-#define HPHK_Pin GPIO_PIN_14
+#define HPHK_Pin GPIO_PIN_11
 #define HPHK_GPIO_Port GPIOB
 #define HPHK_EXTI_IRQn EXTI15_10_IRQn
 #define LightKick_Pin GPIO_PIN_15

@@ -241,19 +241,7 @@ int main(void)
 	if(KeyInputBuff[10].KeyState != KEY_UP) AddKeyValue(KeyStreetFighter6[10]);
 	if(KeyInputBuff[11].KeyState != KEY_UP) AddKeyValue(KeyStreetFighter6[11]);
 	if(KeyInputBuff[12].KeyState != KEY_UP) AddKeyValue(KeyStreetFighter6[12]);
-	if(KeyInputBuff[0].KeyState == KEY_UP && 
-		KeyInputBuff[1].KeyState == KEY_UP &&
-		KeyInputBuff[2].KeyState == KEY_UP &&
-		KeyInputBuff[3].KeyState == KEY_UP &&
-		KeyInputBuff[4].KeyState == KEY_UP &&
-		KeyInputBuff[5].KeyState == KEY_UP &&
-		KeyInputBuff[6].KeyState == KEY_UP &&
-		KeyInputBuff[7].KeyState == KEY_UP &&
-		KeyInputBuff[8].KeyState == KEY_UP &&
-		KeyInputBuff[9].KeyState == KEY_UP &&
-		KeyInputBuff[10].KeyState == KEY_UP &&
-		KeyInputBuff[11].KeyState == KEY_UP &&
-		KeyInputBuff[12].KeyState == KEY_UP) AddKeyValue(0x00);
+	AddKeyValue(0x00);
 
 
    	USBD_HID_SendReport(&hUsbDeviceFS, KeyboardBuff, sizeof(KeyboardBuff) / sizeof(KeyboardBuff[0]));
