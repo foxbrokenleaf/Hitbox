@@ -287,6 +287,10 @@ void OLED_Init(void)
     
     OLED_WriteCommand(0xAF);    // 开启显示
     
+    HAL_GPIO_WritePin(OLED_RST_GPIO_Port, OLED_RST_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(OLED_RST_GPIO_Port, OLED_RST_Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(OLED_RST_GPIO_Port, OLED_RST_Pin, GPIO_PIN_SET);
+
     OLED_Clear();               // 清空显存数组
     OLED_Update();              // 更新显示
 }

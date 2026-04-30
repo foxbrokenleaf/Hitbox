@@ -81,17 +81,14 @@ Data Lenght -> 196Byte
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "tim.h"
-#include "usart.h"
 #include "usb_device.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <stdio.h>
 #include "OLED.h"
 #include "Key.h"
 #include "usbd_customhid.h"
-#include <string.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -116,14 +113,14 @@ uint8_t InputHistoryCounter = 0;
 char *InputHistory[6] = {"🖐", "格", "斗", "键", "盘", "🖐"};
 uint8_t report[15] = {0};
 uint8_t old_report[15] = {0};
+uint8_t Key_scan_counter = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+/* USER CODE BEGIN PFP */
 void DisplayInputHistory(void);
 void AddInputHistory(const char *u_char);
-/* USER CODE BEGIN PFP */
-
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -160,24 +157,21 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_USART1_UART_Init();
   MX_USB_DEVICE_Init();
   MX_TIM2_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
 
 	OLED_Init();
+  OLED_Clear();
+  OLED_ShowString(0, 0, "Display has OK!", OLED_6X8);
+  OLED_Update();
 	Key_Init();
+  OLED_ShowString(0, 8, "Key has OK!", OLED_6X8);
+  OLED_Update();  
   
 
   HAL_Delay(3000);
-
-	printf("Initialize done!\r\n"); 
-	printf("HCLK Freq = %d\r\n", HAL_RCC_GetHCLKFreq());
-	printf("PCLK1 Freq = %d\r\n", HAL_RCC_GetPCLK1Freq());
-	printf("PCLK2 Freq = %d\r\n", HAL_RCC_GetPCLK2Freq());
-	printf("SYSCLK Freq = %d\r\n", HAL_RCC_GetSysClockFreq());
-
 	// usb_printf("Initialize done!\r\n"); 
 	// usb_printf("HCLK Freq = %d\r\n", HAL_RCC_GetHCLKFreq());
 	// usb_printf("PCLK1 Freq = %d\r\n", HAL_RCC_GetPCLK1Freq());
@@ -199,8 +193,6 @@ int main(void)
   OLED_ShowString(80, 0, InputHistory[5], OLED_8X16);
 
   OLED_Update();
-  HAL_Delay(1000);
-  HAL_Delay(1000);
   OLED_Clear();
 
   while (1)
@@ -211,31 +203,50 @@ int main(void)
     //
     // USBD_HID_SendReport(&hUsbDeviceFS, KeyboardBuff, sizeof(KeyboardBuff) / sizeof(KeyboardBuff[0]));
     //Left
-    if (KeyInputBuff[0].KeyState != KEY_UP) {
-      report[3] |= 0x01;
-      
-    }
-    else report[3] &= (~0x01);
+    if (KeyInputBuff[1].KeyState != KEY_UP) report[2] |= 0x01;
+    else report[2] &= (~0x01);
     // Up
-    if (KeyInputBuff[1].KeyState != KEY_UP) {
-      report[3] |= 0x02;
-    }
-    else report[3] &= (~0x02);
-    // OK
-    if (KeyInputBuff[2].KeyState != KEY_UP) {
-      report[3] |= 0x04;
-    }
-    else report[3] &= (~0x04);
+    if (KeyInputBuff[5].KeyState != KEY_UP) report[4] |= 0x40;
+    else report[4] &= (~0x40);
     // Right
-    if (KeyInputBuff[3].KeyState != KEY_UP) {
-      report[3] |= 0x08;
-    }
-    else report[3] &= (~0x08);
+    if (KeyInputBuff[2].KeyState != KEY_UP) report[2] |= 0x08;
+    else report[2] &= (~0x08);
     // Down
-    if (KeyInputBuff[4].KeyState != KEY_UP) {
-      report[3] |= 0x10;
-    }
-    else report[3] &= (~0x10);
+    if (KeyInputBuff[0].KeyState != KEY_UP) report[4] |= 0x04;
+    else report[4] &= (~0x04);
+
+    // LP
+    if (KeyInputBuff[12].KeyState != KEY_UP) report[4] |= 0x10;
+    else report[4] &= (~0x10);
+    // MP
+    if (KeyInputBuff[7].KeyState != KEY_UP) report[3] |= 0x01;
+    else report[3] &= (~0x01);
+    // HP
+    if (KeyInputBuff[11].KeyState != KEY_UP) report[3] |= 0x40;
+    else report[3] &= (~0x40);
+    // LK
+    if (KeyInputBuff[13].KeyState != KEY_UP) report[3] |= 0x02;
+    else report[3] &= (~0x02);
+    // MK
+    if (KeyInputBuff[8].KeyState != KEY_UP) report[3] |= 0x04;
+    else report[3] &= (~0x04);
+    // HK
+    if (KeyInputBuff[3].KeyState != KEY_UP) report[3] |= 0x08;
+    else report[3] &= (~0x08);
+
+    // LP+LK
+    if (KeyInputBuff[10].KeyState != KEY_UP) report[5] |= 0x01;
+    else report[5] &= (~0x01);
+    // MP+MK
+    if (KeyInputBuff[4].KeyState != KEY_UP) report[2] |= 0x80;
+    else report[2] &= (~0x80);
+    // HP+HK
+    if (KeyInputBuff[6].KeyState != KEY_UP) report[3] |= 0x20;
+    else report[3] &= (~0x20);
+    // LP+MP+HP+LK+MK+HK
+    if (KeyInputBuff[9].KeyState != KEY_UP) report[4] |= 0x08;
+    else report[4] &= (~0x08);    
+
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, report, sizeof(report));
     DisplayInputHistory();
     
@@ -295,23 +306,104 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 
 void DisplayInputHistory(void){
+  if((report[2] != old_report[2]) || (report[3] != old_report[3]) || (report[4] != old_report[4]) || (report[5] != old_report[5])){
+    old_report[2] = report[2];
+    old_report[3] = report[3];
+    old_report[4] = report[4];
+    old_report[5] = report[5];
+
+    if(report[4] == 0x40 && report[2] == 0x01) AddInputHistory("↖");
+    else if(report[4] == 0x40 && report[2] == 0x08) AddInputHistory("↗");
+    else if(report[4] == 0x04 && report[2] == 0x01) AddInputHistory("↙");
+    else if(report[4] == 0x04 && report[2] == 0x08) AddInputHistory("↘");
+    else if(report[2] == 0x01) AddInputHistory("←");
+    else if(report[2] == 0x08) AddInputHistory("→");
+    else if(report[4] == 0x40) AddInputHistory("↑");
+    else if(report[4] == 0x04) AddInputHistory("↓");
+    else if((report[4] == 0x10) && (report[3] == 0x01) ||
+            (report[4] == 0x10) && (report[3] == 0x40) ||
+            (report[3] == 0x40) && (report[3] == 0x01) || 
+            (report[3] == 0x02) && (report[3] == 0x04) || 
+            (report[3] == 0x02) && (report[3] == 0x08) || 
+            (report[3] == 0x04) && (report[3] == 0x08)) AddInputHistory("💨");
+    else if(report[4] == 0x10) AddInputHistory("🖐");
+    else if(report[3] == 0x01) AddInputHistory("👊");
+    else if(report[3] == 0x40) AddInputHistory("💪");
+    else if(report[3] == 0x02) AddInputHistory("🦶");
+    else if(report[3] == 0x04) AddInputHistory("🦵");
+    else if(report[3] == 0x08) AddInputHistory("🦿");
+    else if(report[5] == 0x01) AddInputHistory("🫱");
+    else if(report[2] == 0x80) AddInputHistory("🔴");
+    else if(report[3] == 0x20) AddInputHistory("🛡");
+    else if(report[4] == 0x08) AddInputHistory("😜");
+    
+  }
+  // if(report[2] != old_report[2]){
+  //   old_report[2] = report[2];
+  //   switch (report[2])
+  //   {
+  //   case 0x01:AddInputHistory("←");break;
+  //   case 0x08:AddInputHistory("→");break;
+  //   default:
+  //     break;
+  //   }    
+  // }
   if(report[3] != old_report[3]){
     old_report[3] = report[3];
     switch (report[3])
     {
-    case 0x01:AddInputHistory("←");break;
-    case 0x02:AddInputHistory("↑");break;
-    case 0x04:break;
-    case 0x08:AddInputHistory("→");break;
-    case 0x10:AddInputHistory("↓");break;
-    case 0x01 | 0x02:AddInputHistory("↖");break;
-    case 0x01 | 0x10:AddInputHistory("↙");break;
-    case 0x08 | 0x02:AddInputHistory("↗");break;
-    case 0x08 | 0x10:AddInputHistory("↘");break;
+    // case 0x01:AddInputHistory("🖐");break;
+    // case 0x02:AddInputHistory("👊");break;
+    // case 0x04:AddInputHistory("💪");break;
+    // case 0x08:AddInputHistory("🦶");break;
+    // case 0x10:AddInputHistory("🦵");break;
+    // case 0x20:AddInputHistory("🦿");break;
+    case 0x01 | 0x02:
+    case 0x01 | 0x04:
+    case 0x02 | 0x04:
+    case 0x08 | 0x10:
+    case 0x08 | 0x20:
+    case 0x10 | 0x20:AddInputHistory("💨");break;
+    case 0x01 | 0x08:AddInputHistory("🫱");break;
+    case 0x02 | 0x10:AddInputHistory("🛡");break;
+    case 0x04 | 0x20:AddInputHistory("🔴");break;
     default:
       break;
     }    
   }
+  // if(report[4] != old_report[4]){
+  //   old_report[4] = report[4];
+  //   switch (report[4])
+  //   {
+  //     case 0x40:AddInputHistory("↑");break;
+  //     case 0x04:AddInputHistory("↓");break;
+  //     default:
+  //       break;
+  //   }    
+  // }    
+  if(report[5] != old_report[5]){
+    old_report[5] = report[5];
+    switch (report[5])
+    {
+    case 0x01:AddInputHistory("🖐");break;
+    case 0x02:AddInputHistory("👊");break;
+    case 0x04:AddInputHistory("💪");break;
+    case 0x08:AddInputHistory("🦶");break;
+    case 0x10:AddInputHistory("🦵");break;
+    case 0x20:AddInputHistory("🦿");break;
+    case 0x01 | 0x02:
+    case 0x01 | 0x04:
+    case 0x02 | 0x04:
+    case 0x08 | 0x10:
+    case 0x08 | 0x20:
+    case 0x10 | 0x20:AddInputHistory("气");break;
+    case 0x01 | 0x08:AddInputHistory("🫱");break;
+    case 0x02 | 0x10:AddInputHistory("🛡");break;
+    case 0x04 | 0x20:AddInputHistory("🔴");break;
+    default:
+      break;
+    }    
+  }   
   OLED_ShowString(0, 0, InputHistory[0], OLED_8X16);
   OLED_ShowString(16, 0, *(InputHistory + 1), OLED_8X16);
   OLED_ShowString(32, 0, InputHistory[2], OLED_8X16);
@@ -333,11 +425,21 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	if(htim == &htim2)
 	{
-		KeyScan(KeyInputBuff);
-		KeyScan(KeyInputBuff + 1);
-		KeyScan(KeyInputBuff + 2);
-		KeyScan(KeyInputBuff + 3);
-		KeyScan(KeyInputBuff + 4);
+		KeyScan(KeyInputBuff + Key_scan_counter++);
+		// KeyScan(KeyInputBuff + 1);
+		// KeyScan(KeyInputBuff + 2);
+		// KeyScan(KeyInputBuff + 3);
+		// KeyScan(KeyInputBuff + 4);
+		// KeyScan(KeyInputBuff + 5);
+		// KeyScan(KeyInputBuff + 6);
+		// KeyScan(KeyInputBuff + 7);
+		// KeyScan(KeyInputBuff + 8); 
+		// KeyScan(KeyInputBuff + 9);
+		// KeyScan(KeyInputBuff + 10);
+		// KeyScan(KeyInputBuff + 11);
+		// KeyScan(KeyInputBuff + 12);
+		// KeyScan(KeyInputBuff + 13);    
+    Key_scan_counter %= 14;
 
 	}
   if(htim == &htim3){

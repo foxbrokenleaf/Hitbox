@@ -38,9 +38,6 @@
         * Output
         * EVENT_OUT
         * EXTI
-     PA5   ------> SPI1_SCK
-     PA6   ------> SPI1_MISO
-     PA7   ------> SPI1_MOSI
 */
 void MX_GPIO_Init(void)
 {
@@ -54,42 +51,40 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(W25Q256_CS_GPIO_Port, W25Q256_CS_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(OLED_RST_GPIO_Port, OLED_RST_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, OLED_RST_Pin|OLED_SCK_Pin|OLED_SDA_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, OLED_SDA_Pin|OLED_SCK_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : W25Q256_CS_Pin */
-  GPIO_InitStruct.Pin = W25Q256_CS_Pin;
+  /*Configure GPIO pin : OLED_RST_Pin */
+  GPIO_InitStruct.Pin = OLED_RST_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(W25Q256_CS_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(OLED_RST_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PA5 PA6 PA7 */
-  GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  /*Configure GPIO pins : KEY_14_Pin KEY_13_Pin KEY_12_Pin KEY_11_Pin
+                           KEY_10_Pin KEY_3_Pin KEY_2_Pin KEY_1_Pin */
+  GPIO_InitStruct.Pin = KEY_14_Pin|KEY_13_Pin|KEY_12_Pin|KEY_11_Pin
+                          |KEY_10_Pin|KEY_3_Pin|KEY_2_Pin|KEY_1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : OLED_RST_Pin OLED_SCK_Pin OLED_SDA_Pin */
-  GPIO_InitStruct.Pin = OLED_RST_Pin|OLED_SCK_Pin|OLED_SDA_Pin;
+  /*Configure GPIO pins : KEY_9_Pin KEY_8_Pin KEY_7_Pin KEY_6_Pin
+                           KEY_5_Pin KEY_4_Pin */
+  GPIO_InitStruct.Pin = KEY_9_Pin|KEY_8_Pin|KEY_7_Pin|KEY_6_Pin
+                          |KEY_5_Pin|KEY_4_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : OLED_SDA_Pin OLED_SCK_Pin */
+  GPIO_InitStruct.Pin = OLED_SDA_Pin|OLED_SCK_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : KEY_5_Pin KEY_4_Pin KEY_3_Pin KEY_2_Pin */
-  GPIO_InitStruct.Pin = KEY_5_Pin|KEY_4_Pin|KEY_3_Pin|KEY_2_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : KEY_1_Pin */
-  GPIO_InitStruct.Pin = KEY_1_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
-  HAL_GPIO_Init(KEY_1_GPIO_Port, &GPIO_InitStruct);
 
 }
 

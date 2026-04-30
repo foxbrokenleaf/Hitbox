@@ -73,24 +73,40 @@ void StatusSwitch(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define W25Q256_CS_Pin GPIO_PIN_4
-#define W25Q256_CS_GPIO_Port GPIOA
-#define OLED_RST_Pin GPIO_PIN_2
-#define OLED_RST_GPIO_Port GPIOB
-#define OLED_SCK_Pin GPIO_PIN_10
-#define OLED_SCK_GPIO_Port GPIOB
-#define OLED_SDA_Pin GPIO_PIN_11
-#define OLED_SDA_GPIO_Port GPIOB
-#define KEY_5_Pin GPIO_PIN_12
+#define OLED_RST_Pin GPIO_PIN_13
+#define OLED_RST_GPIO_Port GPIOC
+#define KEY_14_Pin GPIO_PIN_3
+#define KEY_14_GPIO_Port GPIOA
+#define KEY_13_Pin GPIO_PIN_4
+#define KEY_13_GPIO_Port GPIOA
+#define KEY_12_Pin GPIO_PIN_5
+#define KEY_12_GPIO_Port GPIOA
+#define KEY_11_Pin GPIO_PIN_6
+#define KEY_11_GPIO_Port GPIOA
+#define KEY_10_Pin GPIO_PIN_7
+#define KEY_10_GPIO_Port GPIOA
+#define KEY_9_Pin GPIO_PIN_0
+#define KEY_9_GPIO_Port GPIOB
+#define KEY_8_Pin GPIO_PIN_1
+#define KEY_8_GPIO_Port GPIOB
+#define KEY_7_Pin GPIO_PIN_2
+#define KEY_7_GPIO_Port GPIOB
+#define KEY_6_Pin GPIO_PIN_10
+#define KEY_6_GPIO_Port GPIOB
+#define KEY_5_Pin GPIO_PIN_11
 #define KEY_5_GPIO_Port GPIOB
-#define KEY_4_Pin GPIO_PIN_13
+#define KEY_4_Pin GPIO_PIN_15
 #define KEY_4_GPIO_Port GPIOB
-#define KEY_3_Pin GPIO_PIN_14
-#define KEY_3_GPIO_Port GPIOB
-#define KEY_2_Pin GPIO_PIN_15
-#define KEY_2_GPIO_Port GPIOB
-#define KEY_1_Pin GPIO_PIN_8
+#define KEY_3_Pin GPIO_PIN_8
+#define KEY_3_GPIO_Port GPIOA
+#define KEY_2_Pin GPIO_PIN_9
+#define KEY_2_GPIO_Port GPIOA
+#define KEY_1_Pin GPIO_PIN_10
 #define KEY_1_GPIO_Port GPIOA
+#define OLED_SDA_Pin GPIO_PIN_8
+#define OLED_SDA_GPIO_Port GPIOB
+#define OLED_SCK_Pin GPIO_PIN_9
+#define OLED_SCK_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 

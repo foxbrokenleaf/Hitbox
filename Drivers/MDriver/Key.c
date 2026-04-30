@@ -7,7 +7,7 @@
 #include "Delay.h"
 #endif
 
-#define KEY_NUM 5
+#define KEY_NUM 14
 
 #ifdef USE_HAL_DRIVER
 ButtonType KeyInputBuff[KEY_NUM] = {
@@ -16,7 +16,15 @@ ButtonType KeyInputBuff[KEY_NUM] = {
 	{.GPIO_Port = KEY_3_GPIO_Port, .GPIO_Pin = KEY_3_Pin, .KeyState = KEY_UP, .HoldCnt = 0},
 	{.GPIO_Port = KEY_4_GPIO_Port, .GPIO_Pin = KEY_4_Pin, .KeyState = KEY_UP, .HoldCnt = 0},
 	{.GPIO_Port = KEY_5_GPIO_Port, .GPIO_Pin = KEY_5_Pin, .KeyState = KEY_UP, .HoldCnt = 0},
-
+    {.GPIO_Port = KEY_6_GPIO_Port, .GPIO_Pin = KEY_6_Pin, .KeyState = KEY_UP, .HoldCnt = 0},
+	{.GPIO_Port = KEY_7_GPIO_Port, .GPIO_Pin = KEY_7_Pin, .KeyState = KEY_UP, .HoldCnt = 0},
+	{.GPIO_Port = KEY_8_GPIO_Port, .GPIO_Pin = KEY_8_Pin, .KeyState = KEY_UP, .HoldCnt = 0},
+	{.GPIO_Port = KEY_9_GPIO_Port, .GPIO_Pin = KEY_9_Pin, .KeyState = KEY_UP, .HoldCnt = 0},
+	{.GPIO_Port = KEY_10_GPIO_Port, .GPIO_Pin = KEY_10_Pin, .KeyState = KEY_UP, .HoldCnt = 0},
+	{.GPIO_Port = KEY_11_GPIO_Port, .GPIO_Pin = KEY_11_Pin, .KeyState = KEY_UP, .HoldCnt = 0},
+	{.GPIO_Port = KEY_12_GPIO_Port, .GPIO_Pin = KEY_12_Pin, .KeyState = KEY_UP, .HoldCnt = 0},
+	{.GPIO_Port = KEY_13_GPIO_Port, .GPIO_Pin = KEY_13_Pin, .KeyState = KEY_UP, .HoldCnt = 0},
+	{.GPIO_Port = KEY_14_GPIO_Port, .GPIO_Pin = KEY_14_Pin, .KeyState = KEY_UP, .HoldCnt = 0},   
 };
 #else
 GPIO_TypeDef *GPIO_Port_x[5] = {
@@ -72,7 +80,7 @@ void Key_Init(){
 
 
 void KeyScan(ButtonType *bt){
-	if(HAL_GPIO_ReadPin(bt->GPIO_Port, bt->GPIO_Pin) == GPIO_PIN_SET){
+	if(HAL_GPIO_ReadPin(bt->GPIO_Port, bt->GPIO_Pin) == GPIO_PIN_RESET){
 		bt->HoldCnt++;
 		if(bt->HoldCnt > 100) bt->KeyState = KEY_HOLD;
 	}
