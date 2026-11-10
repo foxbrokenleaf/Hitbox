@@ -1,0 +1,7 @@
+
+State Machine - |kt|game_key_debounce:k1|state
+Name state.state_bit_1 state.state_bit_0 
+state.IDLE 0 0 
+state.DEBOUNCE 0 1 
+state.PRESSED 1 0 
+state.RELEASE 1 1 

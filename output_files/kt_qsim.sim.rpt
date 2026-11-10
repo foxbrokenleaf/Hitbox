@@ -1,0 +1,578 @@
+Simulator report for kt_qsim
+Tue Nov 10 11:30:19 2026
+Quartus II 64-Bit Version 13.0.0 Build 156 04/24/2013 SJ Full Version
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Simulator Summary
+  3. Simulator Settings
+  4. Simulation Waveforms
+  5. Coverage Summary
+  6. Complete 1/0-Value Coverage
+  7. Missing 1-Value Coverage
+  8. Missing 0-Value Coverage
+  9. Simulator INI Usage
+ 10. Simulator Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++--------------------------------------------+
+; Simulator Summary                          ;
++-----------------------------+--------------+
+; Type                        ; Value        ;
++-----------------------------+--------------+
+; Simulation Start Time       ; 0 ps         ;
+; Simulation End Time         ; 1.0 us       ;
+; Simulation Netlist Size     ; 246 nodes    ;
+; Simulation Coverage         ;      31.71 % ;
+; Total Number of Transitions ; 1297         ;
+; Simulation Breakpoints      ; 0            ;
+; Family                      ; Cyclone III  ;
++-----------------------------+--------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Simulator Settings                                                                                                                                           ;
++--------------------------------------------------------------------------------------------+-------------------------------------------------+---------------+
+; Option                                                                                     ; Setting                                         ; Default Value ;
++--------------------------------------------------------------------------------------------+-------------------------------------------------+---------------+
+; Simulation mode                                                                            ; Functional                                      ; Timing        ;
+; Start time                                                                                 ; 0 ns                                            ; 0 ns          ;
+; Simulation results format                                                                  ; VWF                                             ;               ;
+; Vector input source                                                                        ; F:/Temp/keyboard_test/output_files/Waveform.vwf ;               ;
+; Add pins automatically to simulation output waveforms                                      ; On                                              ; On            ;
+; Check outputs                                                                              ; Off                                             ; Off           ;
+; Report simulation coverage                                                                 ; On                                              ; On            ;
+; Display complete 1/0 value coverage report                                                 ; On                                              ; On            ;
+; Display missing 1-value coverage report                                                    ; On                                              ; On            ;
+; Display missing 0-value coverage report                                                    ; On                                              ; On            ;
+; Detect setup and hold time violations                                                      ; Off                                             ; Off           ;
+; Detect glitches                                                                            ; Off                                             ; Off           ;
+; Disable timing delays in Timing Simulation                                                 ; Off                                             ; Off           ;
+; Generate Signal Activity File                                                              ; Off                                             ; Off           ;
+; Generate VCD File for PowerPlay Power Analyzer                                             ; Off                                             ; Off           ;
+; Group bus channels in simulation results                                                   ; Off                                             ; Off           ;
+; Preserve fewer signal transitions to reduce memory requirements                            ; On                                              ; On            ;
+; Trigger vector comparison with the specified mode                                          ; INPUT_EDGE                                      ; INPUT_EDGE    ;
+; Disable setup and hold time violations detection in input registers of bi-directional pins ; Off                                             ; Off           ;
+; Overwrite Waveform Inputs With Simulation Outputs                                          ; Off                                             ;               ;
+; Perform Glitch Filtering in Timing Simulation                                              ; Auto                                            ; Auto          ;
+; Interconnect Delay Model Type                                                              ; Transport                                       ; Transport     ;
+; Cell Delay Model Type                                                                      ; Transport                                       ; Transport     ;
++--------------------------------------------------------------------------------------------+-------------------------------------------------+---------------+
+
+
++----------------------+
+; Simulation Waveforms ;
++----------------------+
+Waveform report data cannot be output to ASCII.
+Please use Quartus II 64-Bit to view the waveform report data.
+
+
++--------------------------------------------------------------------+
+; Coverage Summary                                                   ;
++-----------------------------------------------------+--------------+
+; Type                                                ; Value        ;
++-----------------------------------------------------+--------------+
+; Total coverage as a percentage                      ;      31.71 % ;
+; Total nodes checked                                 ; 246          ;
+; Total output ports checked                          ; 246          ;
+; Total output ports with complete 1/0-value coverage ; 78           ;
+; Total output ports with no 1/0-value coverage       ; 167          ;
+; Total output ports with no 1-value coverage         ; 167          ;
+; Total output ports with no 0-value coverage         ; 168          ;
++-----------------------------------------------------+--------------+
+
+
+The following table displays output ports that toggle between 1 and 0 during simulation.
++------------------------------------------------------------+
+; Complete 1/0-Value Coverage                                ;
++--------------------+--------------------+------------------+
+; Node Name          ; Output Port Name   ; Output Port Type ;
++--------------------+--------------------+------------------+
+; |kt|state~0        ; |kt|state~0        ; out              ;
+; |kt|state~1        ; |kt|state~1        ; out              ;
+; |kt|key_out~0      ; |kt|key_out~0      ; out              ;
+; |kt|cnt~14         ; |kt|cnt~14         ; out              ;
+; |kt|cnt~15         ; |kt|cnt~15         ; out              ;
+; |kt|cnt~16         ; |kt|cnt~16         ; out              ;
+; |kt|cnt~17         ; |kt|cnt~17         ; out              ;
+; |kt|cnt~18         ; |kt|cnt~18         ; out              ;
+; |kt|cnt~19         ; |kt|cnt~19         ; out              ;
+; |kt|state~4        ; |kt|state~4        ; out              ;
+; |kt|state~5        ; |kt|state~5        ; out              ;
+; |kt|key_out~1      ; |kt|key_out~1      ; out              ;
+; |kt|cnt~34         ; |kt|cnt~34         ; out              ;
+; |kt|cnt~35         ; |kt|cnt~35         ; out              ;
+; |kt|cnt~36         ; |kt|cnt~36         ; out              ;
+; |kt|cnt~37         ; |kt|cnt~37         ; out              ;
+; |kt|cnt~38         ; |kt|cnt~38         ; out              ;
+; |kt|cnt~39         ; |kt|cnt~39         ; out              ;
+; |kt|state~8        ; |kt|state~8        ; out              ;
+; |kt|state~9        ; |kt|state~9        ; out              ;
+; |kt|state~12       ; |kt|state~12       ; out              ;
+; |kt|state~13       ; |kt|state~13       ; out              ;
+; |kt|state~15       ; |kt|state~15       ; out              ;
+; |kt|key_out~reg0   ; |kt|key_out~reg0   ; regout           ;
+; |kt|key_out~2      ; |kt|key_out~2      ; out              ;
+; |kt|state~16       ; |kt|state~16       ; out              ;
+; |kt|key_out~3      ; |kt|key_out~3      ; out              ;
+; |kt|cnt~56         ; |kt|cnt~56         ; out              ;
+; |kt|cnt~57         ; |kt|cnt~57         ; out              ;
+; |kt|cnt~58         ; |kt|cnt~58         ; out              ;
+; |kt|cnt~59         ; |kt|cnt~59         ; out              ;
+; |kt|state~18       ; |kt|state~18       ; out              ;
+; |kt|state~19       ; |kt|state~19       ; out              ;
+; |kt|state~20       ; |kt|state~20       ; out              ;
+; |kt|sync[0]        ; |kt|sync[0]        ; regout           ;
+; |kt|state.IDLE     ; |kt|state.IDLE     ; regout           ;
+; |kt|state.DEBOUNCE ; |kt|state.DEBOUNCE ; regout           ;
+; |kt|cnt[3]         ; |kt|cnt[3]         ; regout           ;
+; |kt|cnt[2]         ; |kt|cnt[2]         ; regout           ;
+; |kt|cnt[1]         ; |kt|cnt[1]         ; regout           ;
+; |kt|cnt[0]         ; |kt|cnt[0]         ; regout           ;
+; |kt|clk            ; |kt|clk            ; out              ;
+; |kt|key_in         ; |kt|key_in         ; out              ;
+; |kt|key_out        ; |kt|key_out        ; pin_out          ;
+; |kt|state~22       ; |kt|state~22       ; out0             ;
+; |kt|state~25       ; |kt|state~25       ; out0             ;
+; |kt|state~27       ; |kt|state~27       ; out0             ;
+; |kt|state~35       ; |kt|state~35       ; out0             ;
+; |kt|Selector14~0   ; |kt|Selector14~0   ; out0             ;
+; |kt|Selector14~2   ; |kt|Selector14~2   ; out0             ;
+; |kt|Selector15~0   ; |kt|Selector15~0   ; out0             ;
+; |kt|Selector15~2   ; |kt|Selector15~2   ; out0             ;
+; |kt|Selector16~0   ; |kt|Selector16~0   ; out0             ;
+; |kt|Selector16~2   ; |kt|Selector16~2   ; out0             ;
+; |kt|Selector17~0   ; |kt|Selector17~0   ; out0             ;
+; |kt|Selector17~2   ; |kt|Selector17~2   ; out0             ;
+; |kt|Selector18~0   ; |kt|Selector18~0   ; out0             ;
+; |kt|Selector18~2   ; |kt|Selector18~2   ; out0             ;
+; |kt|Selector19~0   ; |kt|Selector19~0   ; out0             ;
+; |kt|Selector19~2   ; |kt|Selector19~2   ; out0             ;
+; |kt|Selector20~0   ; |kt|Selector20~0   ; out0             ;
+; |kt|Selector20~2   ; |kt|Selector20~2   ; out0             ;
+; |kt|Selector20~3   ; |kt|Selector20~3   ; out0             ;
+; |kt|Selector21~0   ; |kt|Selector21~0   ; out0             ;
+; |kt|Selector21~3   ; |kt|Selector21~3   ; out0             ;
+; |kt|Selector21~4   ; |kt|Selector21~4   ; out0             ;
+; |kt|Selector22~0   ; |kt|Selector22~0   ; out0             ;
+; |kt|Selector22~3   ; |kt|Selector22~3   ; out0             ;
+; |kt|Selector22~4   ; |kt|Selector22~4   ; out0             ;
+; |kt|Add0~0         ; |kt|Add0~0         ; out0             ;
+; |kt|Add0~1         ; |kt|Add0~1         ; out0             ;
+; |kt|Add0~2         ; |kt|Add0~2         ; out0             ;
+; |kt|Add0~3         ; |kt|Add0~3         ; out0             ;
+; |kt|Add0~4         ; |kt|Add0~4         ; out0             ;
+; |kt|Add0~5         ; |kt|Add0~5         ; out0             ;
+; |kt|Add0~6         ; |kt|Add0~6         ; out0             ;
+; |kt|Add0~7         ; |kt|Add0~7         ; out0             ;
+; |kt|Add0~8         ; |kt|Add0~8         ; out0             ;
++--------------------+--------------------+------------------+
+
+
+The following table displays output ports that do not toggle to 1 during simulation.
++----------------------------------------------------------+
+; Missing 1-Value Coverage                                 ;
++-------------------+-------------------+------------------+
+; Node Name         ; Output Port Name  ; Output Port Type ;
++-------------------+-------------------+------------------+
+; |kt|state~2       ; |kt|state~2       ; out              ;
+; |kt|state~3       ; |kt|state~3       ; out              ;
+; |kt|cnt~0         ; |kt|cnt~0         ; out              ;
+; |kt|cnt~1         ; |kt|cnt~1         ; out              ;
+; |kt|cnt~2         ; |kt|cnt~2         ; out              ;
+; |kt|cnt~3         ; |kt|cnt~3         ; out              ;
+; |kt|cnt~4         ; |kt|cnt~4         ; out              ;
+; |kt|cnt~5         ; |kt|cnt~5         ; out              ;
+; |kt|cnt~6         ; |kt|cnt~6         ; out              ;
+; |kt|cnt~7         ; |kt|cnt~7         ; out              ;
+; |kt|cnt~8         ; |kt|cnt~8         ; out              ;
+; |kt|cnt~9         ; |kt|cnt~9         ; out              ;
+; |kt|cnt~10        ; |kt|cnt~10        ; out              ;
+; |kt|cnt~11        ; |kt|cnt~11        ; out              ;
+; |kt|cnt~12        ; |kt|cnt~12        ; out              ;
+; |kt|cnt~13        ; |kt|cnt~13        ; out              ;
+; |kt|state~6       ; |kt|state~6       ; out              ;
+; |kt|state~7       ; |kt|state~7       ; out              ;
+; |kt|cnt~20        ; |kt|cnt~20        ; out              ;
+; |kt|cnt~21        ; |kt|cnt~21        ; out              ;
+; |kt|cnt~22        ; |kt|cnt~22        ; out              ;
+; |kt|cnt~23        ; |kt|cnt~23        ; out              ;
+; |kt|cnt~24        ; |kt|cnt~24        ; out              ;
+; |kt|cnt~25        ; |kt|cnt~25        ; out              ;
+; |kt|cnt~26        ; |kt|cnt~26        ; out              ;
+; |kt|cnt~27        ; |kt|cnt~27        ; out              ;
+; |kt|cnt~28        ; |kt|cnt~28        ; out              ;
+; |kt|cnt~29        ; |kt|cnt~29        ; out              ;
+; |kt|cnt~30        ; |kt|cnt~30        ; out              ;
+; |kt|cnt~31        ; |kt|cnt~31        ; out              ;
+; |kt|cnt~32        ; |kt|cnt~32        ; out              ;
+; |kt|cnt~33        ; |kt|cnt~33        ; out              ;
+; |kt|state~10      ; |kt|state~10      ; out              ;
+; |kt|state~11      ; |kt|state~11      ; out              ;
+; |kt|state~14      ; |kt|state~14      ; out              ;
+; |kt|state~17      ; |kt|state~17      ; out              ;
+; |kt|cnt~40        ; |kt|cnt~40        ; out              ;
+; |kt|cnt~41        ; |kt|cnt~41        ; out              ;
+; |kt|cnt~42        ; |kt|cnt~42        ; out              ;
+; |kt|cnt~43        ; |kt|cnt~43        ; out              ;
+; |kt|cnt~44        ; |kt|cnt~44        ; out              ;
+; |kt|cnt~45        ; |kt|cnt~45        ; out              ;
+; |kt|cnt~46        ; |kt|cnt~46        ; out              ;
+; |kt|cnt~47        ; |kt|cnt~47        ; out              ;
+; |kt|cnt~48        ; |kt|cnt~48        ; out              ;
+; |kt|cnt~49        ; |kt|cnt~49        ; out              ;
+; |kt|cnt~50        ; |kt|cnt~50        ; out              ;
+; |kt|cnt~51        ; |kt|cnt~51        ; out              ;
+; |kt|cnt~52        ; |kt|cnt~52        ; out              ;
+; |kt|cnt~53        ; |kt|cnt~53        ; out              ;
+; |kt|cnt~54        ; |kt|cnt~54        ; out              ;
+; |kt|cnt~55        ; |kt|cnt~55        ; out              ;
+; |kt|state~21      ; |kt|state~21      ; out              ;
+; |kt|state.PRESSED ; |kt|state.PRESSED ; regout           ;
+; |kt|state.RELEASE ; |kt|state.RELEASE ; regout           ;
+; |kt|cnt[19]       ; |kt|cnt[19]       ; regout           ;
+; |kt|cnt[18]       ; |kt|cnt[18]       ; regout           ;
+; |kt|cnt[17]       ; |kt|cnt[17]       ; regout           ;
+; |kt|cnt[16]       ; |kt|cnt[16]       ; regout           ;
+; |kt|cnt[15]       ; |kt|cnt[15]       ; regout           ;
+; |kt|cnt[14]       ; |kt|cnt[14]       ; regout           ;
+; |kt|cnt[13]       ; |kt|cnt[13]       ; regout           ;
+; |kt|cnt[12]       ; |kt|cnt[12]       ; regout           ;
+; |kt|cnt[11]       ; |kt|cnt[11]       ; regout           ;
+; |kt|cnt[10]       ; |kt|cnt[10]       ; regout           ;
+; |kt|cnt[9]        ; |kt|cnt[9]        ; regout           ;
+; |kt|cnt[8]        ; |kt|cnt[8]        ; regout           ;
+; |kt|cnt[7]        ; |kt|cnt[7]        ; regout           ;
+; |kt|cnt[6]        ; |kt|cnt[6]        ; regout           ;
+; |kt|cnt[5]        ; |kt|cnt[5]        ; regout           ;
+; |kt|rst_n         ; |kt|rst_n         ; out              ;
+; |kt|state~23      ; |kt|state~23      ; out0             ;
+; |kt|state~29      ; |kt|state~29      ; out0             ;
+; |kt|state~31      ; |kt|state~31      ; out0             ;
+; |kt|state~39      ; |kt|state~39      ; out0             ;
+; |kt|Selector0~0   ; |kt|Selector0~0   ; out0             ;
+; |kt|Selector0~1   ; |kt|Selector0~1   ; out0             ;
+; |kt|Selector0~2   ; |kt|Selector0~2   ; out0             ;
+; |kt|Selector1~0   ; |kt|Selector1~0   ; out0             ;
+; |kt|Selector1~1   ; |kt|Selector1~1   ; out0             ;
+; |kt|Selector1~2   ; |kt|Selector1~2   ; out0             ;
+; |kt|Selector2~0   ; |kt|Selector2~0   ; out0             ;
+; |kt|Selector2~1   ; |kt|Selector2~1   ; out0             ;
+; |kt|Selector2~2   ; |kt|Selector2~2   ; out0             ;
+; |kt|Selector3~0   ; |kt|Selector3~0   ; out0             ;
+; |kt|Selector3~1   ; |kt|Selector3~1   ; out0             ;
+; |kt|Selector3~2   ; |kt|Selector3~2   ; out0             ;
+; |kt|Selector4~0   ; |kt|Selector4~0   ; out0             ;
+; |kt|Selector4~1   ; |kt|Selector4~1   ; out0             ;
+; |kt|Selector4~2   ; |kt|Selector4~2   ; out0             ;
+; |kt|Selector5~0   ; |kt|Selector5~0   ; out0             ;
+; |kt|Selector5~1   ; |kt|Selector5~1   ; out0             ;
+; |kt|Selector5~2   ; |kt|Selector5~2   ; out0             ;
+; |kt|Selector6~0   ; |kt|Selector6~0   ; out0             ;
+; |kt|Selector6~1   ; |kt|Selector6~1   ; out0             ;
+; |kt|Selector6~2   ; |kt|Selector6~2   ; out0             ;
+; |kt|Selector7~0   ; |kt|Selector7~0   ; out0             ;
+; |kt|Selector7~1   ; |kt|Selector7~1   ; out0             ;
+; |kt|Selector7~2   ; |kt|Selector7~2   ; out0             ;
+; |kt|Selector8~0   ; |kt|Selector8~0   ; out0             ;
+; |kt|Selector8~1   ; |kt|Selector8~1   ; out0             ;
+; |kt|Selector8~2   ; |kt|Selector8~2   ; out0             ;
+; |kt|Selector9~0   ; |kt|Selector9~0   ; out0             ;
+; |kt|Selector9~1   ; |kt|Selector9~1   ; out0             ;
+; |kt|Selector9~2   ; |kt|Selector9~2   ; out0             ;
+; |kt|Selector10~0  ; |kt|Selector10~0  ; out0             ;
+; |kt|Selector10~1  ; |kt|Selector10~1  ; out0             ;
+; |kt|Selector10~2  ; |kt|Selector10~2  ; out0             ;
+; |kt|Selector11~0  ; |kt|Selector11~0  ; out0             ;
+; |kt|Selector11~1  ; |kt|Selector11~1  ; out0             ;
+; |kt|Selector11~2  ; |kt|Selector11~2  ; out0             ;
+; |kt|Selector12~0  ; |kt|Selector12~0  ; out0             ;
+; |kt|Selector12~1  ; |kt|Selector12~1  ; out0             ;
+; |kt|Selector12~2  ; |kt|Selector12~2  ; out0             ;
+; |kt|Selector13~0  ; |kt|Selector13~0  ; out0             ;
+; |kt|Selector13~1  ; |kt|Selector13~1  ; out0             ;
+; |kt|Selector13~2  ; |kt|Selector13~2  ; out0             ;
+; |kt|Selector14~1  ; |kt|Selector14~1  ; out0             ;
+; |kt|Selector15~1  ; |kt|Selector15~1  ; out0             ;
+; |kt|Selector16~1  ; |kt|Selector16~1  ; out0             ;
+; |kt|Selector17~1  ; |kt|Selector17~1  ; out0             ;
+; |kt|Selector18~1  ; |kt|Selector18~1  ; out0             ;
+; |kt|Selector19~1  ; |kt|Selector19~1  ; out0             ;
+; |kt|Selector20~1  ; |kt|Selector20~1  ; out0             ;
+; |kt|Selector21~1  ; |kt|Selector21~1  ; out0             ;
+; |kt|Selector21~2  ; |kt|Selector21~2  ; out0             ;
+; |kt|Selector22~1  ; |kt|Selector22~1  ; out0             ;
+; |kt|Selector22~2  ; |kt|Selector22~2  ; out0             ;
+; |kt|Selector23~0  ; |kt|Selector23~0  ; out0             ;
+; |kt|Selector23~1  ; |kt|Selector23~1  ; out0             ;
+; |kt|Selector23~2  ; |kt|Selector23~2  ; out0             ;
+; |kt|Selector23~3  ; |kt|Selector23~3  ; out0             ;
+; |kt|Selector23~4  ; |kt|Selector23~4  ; out0             ;
+; |kt|Selector24~0  ; |kt|Selector24~0  ; out0             ;
+; |kt|Selector24~1  ; |kt|Selector24~1  ; out0             ;
+; |kt|Selector24~2  ; |kt|Selector24~2  ; out0             ;
+; |kt|Selector24~3  ; |kt|Selector24~3  ; out0             ;
+; |kt|Selector24~4  ; |kt|Selector24~4  ; out0             ;
+; |kt|Add0~9        ; |kt|Add0~9        ; out0             ;
+; |kt|Add0~10       ; |kt|Add0~10       ; out0             ;
+; |kt|Add0~11       ; |kt|Add0~11       ; out0             ;
+; |kt|Add0~12       ; |kt|Add0~12       ; out0             ;
+; |kt|Add0~13       ; |kt|Add0~13       ; out0             ;
+; |kt|Add0~14       ; |kt|Add0~14       ; out0             ;
+; |kt|Add0~15       ; |kt|Add0~15       ; out0             ;
+; |kt|Add0~16       ; |kt|Add0~16       ; out0             ;
+; |kt|Add0~17       ; |kt|Add0~17       ; out0             ;
+; |kt|Add0~18       ; |kt|Add0~18       ; out0             ;
+; |kt|Add0~19       ; |kt|Add0~19       ; out0             ;
+; |kt|Add0~20       ; |kt|Add0~20       ; out0             ;
+; |kt|Add0~21       ; |kt|Add0~21       ; out0             ;
+; |kt|Add0~22       ; |kt|Add0~22       ; out0             ;
+; |kt|Add0~23       ; |kt|Add0~23       ; out0             ;
+; |kt|Add0~24       ; |kt|Add0~24       ; out0             ;
+; |kt|Add0~25       ; |kt|Add0~25       ; out0             ;
+; |kt|Add0~26       ; |kt|Add0~26       ; out0             ;
+; |kt|Add0~27       ; |kt|Add0~27       ; out0             ;
+; |kt|Add0~28       ; |kt|Add0~28       ; out0             ;
+; |kt|Add0~29       ; |kt|Add0~29       ; out0             ;
+; |kt|Add0~30       ; |kt|Add0~30       ; out0             ;
+; |kt|Add0~31       ; |kt|Add0~31       ; out0             ;
+; |kt|Add0~32       ; |kt|Add0~32       ; out0             ;
+; |kt|Add0~33       ; |kt|Add0~33       ; out0             ;
+; |kt|Add0~34       ; |kt|Add0~34       ; out0             ;
+; |kt|Add0~35       ; |kt|Add0~35       ; out0             ;
+; |kt|Add0~36       ; |kt|Add0~36       ; out0             ;
+; |kt|Equal0~0      ; |kt|Equal0~0      ; out0             ;
++-------------------+-------------------+------------------+
+
+
+The following table displays output ports that do not toggle to 0 during simulation.
++----------------------------------------------------------+
+; Missing 0-Value Coverage                                 ;
++-------------------+-------------------+------------------+
+; Node Name         ; Output Port Name  ; Output Port Type ;
++-------------------+-------------------+------------------+
+; |kt|state~2       ; |kt|state~2       ; out              ;
+; |kt|state~3       ; |kt|state~3       ; out              ;
+; |kt|cnt~0         ; |kt|cnt~0         ; out              ;
+; |kt|cnt~1         ; |kt|cnt~1         ; out              ;
+; |kt|cnt~2         ; |kt|cnt~2         ; out              ;
+; |kt|cnt~3         ; |kt|cnt~3         ; out              ;
+; |kt|cnt~4         ; |kt|cnt~4         ; out              ;
+; |kt|cnt~5         ; |kt|cnt~5         ; out              ;
+; |kt|cnt~6         ; |kt|cnt~6         ; out              ;
+; |kt|cnt~7         ; |kt|cnt~7         ; out              ;
+; |kt|cnt~8         ; |kt|cnt~8         ; out              ;
+; |kt|cnt~9         ; |kt|cnt~9         ; out              ;
+; |kt|cnt~10        ; |kt|cnt~10        ; out              ;
+; |kt|cnt~11        ; |kt|cnt~11        ; out              ;
+; |kt|cnt~12        ; |kt|cnt~12        ; out              ;
+; |kt|cnt~13        ; |kt|cnt~13        ; out              ;
+; |kt|state~6       ; |kt|state~6       ; out              ;
+; |kt|state~7       ; |kt|state~7       ; out              ;
+; |kt|cnt~20        ; |kt|cnt~20        ; out              ;
+; |kt|cnt~21        ; |kt|cnt~21        ; out              ;
+; |kt|cnt~22        ; |kt|cnt~22        ; out              ;
+; |kt|cnt~23        ; |kt|cnt~23        ; out              ;
+; |kt|cnt~24        ; |kt|cnt~24        ; out              ;
+; |kt|cnt~25        ; |kt|cnt~25        ; out              ;
+; |kt|cnt~26        ; |kt|cnt~26        ; out              ;
+; |kt|cnt~27        ; |kt|cnt~27        ; out              ;
+; |kt|cnt~28        ; |kt|cnt~28        ; out              ;
+; |kt|cnt~29        ; |kt|cnt~29        ; out              ;
+; |kt|cnt~30        ; |kt|cnt~30        ; out              ;
+; |kt|cnt~31        ; |kt|cnt~31        ; out              ;
+; |kt|cnt~32        ; |kt|cnt~32        ; out              ;
+; |kt|cnt~33        ; |kt|cnt~33        ; out              ;
+; |kt|state~10      ; |kt|state~10      ; out              ;
+; |kt|state~11      ; |kt|state~11      ; out              ;
+; |kt|state~14      ; |kt|state~14      ; out              ;
+; |kt|state~17      ; |kt|state~17      ; out              ;
+; |kt|cnt~40        ; |kt|cnt~40        ; out              ;
+; |kt|cnt~41        ; |kt|cnt~41        ; out              ;
+; |kt|cnt~42        ; |kt|cnt~42        ; out              ;
+; |kt|cnt~43        ; |kt|cnt~43        ; out              ;
+; |kt|cnt~44        ; |kt|cnt~44        ; out              ;
+; |kt|cnt~45        ; |kt|cnt~45        ; out              ;
+; |kt|cnt~46        ; |kt|cnt~46        ; out              ;
+; |kt|cnt~47        ; |kt|cnt~47        ; out              ;
+; |kt|cnt~48        ; |kt|cnt~48        ; out              ;
+; |kt|cnt~49        ; |kt|cnt~49        ; out              ;
+; |kt|cnt~50        ; |kt|cnt~50        ; out              ;
+; |kt|cnt~51        ; |kt|cnt~51        ; out              ;
+; |kt|cnt~52        ; |kt|cnt~52        ; out              ;
+; |kt|cnt~53        ; |kt|cnt~53        ; out              ;
+; |kt|cnt~54        ; |kt|cnt~54        ; out              ;
+; |kt|cnt~55        ; |kt|cnt~55        ; out              ;
+; |kt|state~21      ; |kt|state~21      ; out              ;
+; |kt|state.PRESSED ; |kt|state.PRESSED ; regout           ;
+; |kt|state.RELEASE ; |kt|state.RELEASE ; regout           ;
+; |kt|cnt[19]       ; |kt|cnt[19]       ; regout           ;
+; |kt|cnt[18]       ; |kt|cnt[18]       ; regout           ;
+; |kt|cnt[17]       ; |kt|cnt[17]       ; regout           ;
+; |kt|cnt[16]       ; |kt|cnt[16]       ; regout           ;
+; |kt|cnt[15]       ; |kt|cnt[15]       ; regout           ;
+; |kt|cnt[14]       ; |kt|cnt[14]       ; regout           ;
+; |kt|cnt[13]       ; |kt|cnt[13]       ; regout           ;
+; |kt|cnt[12]       ; |kt|cnt[12]       ; regout           ;
+; |kt|cnt[11]       ; |kt|cnt[11]       ; regout           ;
+; |kt|cnt[10]       ; |kt|cnt[10]       ; regout           ;
+; |kt|cnt[9]        ; |kt|cnt[9]        ; regout           ;
+; |kt|cnt[8]        ; |kt|cnt[8]        ; regout           ;
+; |kt|cnt[7]        ; |kt|cnt[7]        ; regout           ;
+; |kt|cnt[6]        ; |kt|cnt[6]        ; regout           ;
+; |kt|cnt[5]        ; |kt|cnt[5]        ; regout           ;
+; |kt|cnt[4]        ; |kt|cnt[4]        ; regout           ;
+; |kt|rst_n         ; |kt|rst_n         ; out              ;
+; |kt|state~23      ; |kt|state~23      ; out0             ;
+; |kt|state~29      ; |kt|state~29      ; out0             ;
+; |kt|state~31      ; |kt|state~31      ; out0             ;
+; |kt|state~39      ; |kt|state~39      ; out0             ;
+; |kt|Selector0~0   ; |kt|Selector0~0   ; out0             ;
+; |kt|Selector0~1   ; |kt|Selector0~1   ; out0             ;
+; |kt|Selector0~2   ; |kt|Selector0~2   ; out0             ;
+; |kt|Selector1~0   ; |kt|Selector1~0   ; out0             ;
+; |kt|Selector1~1   ; |kt|Selector1~1   ; out0             ;
+; |kt|Selector1~2   ; |kt|Selector1~2   ; out0             ;
+; |kt|Selector2~0   ; |kt|Selector2~0   ; out0             ;
+; |kt|Selector2~1   ; |kt|Selector2~1   ; out0             ;
+; |kt|Selector2~2   ; |kt|Selector2~2   ; out0             ;
+; |kt|Selector3~0   ; |kt|Selector3~0   ; out0             ;
+; |kt|Selector3~1   ; |kt|Selector3~1   ; out0             ;
+; |kt|Selector3~2   ; |kt|Selector3~2   ; out0             ;
+; |kt|Selector4~0   ; |kt|Selector4~0   ; out0             ;
+; |kt|Selector4~1   ; |kt|Selector4~1   ; out0             ;
+; |kt|Selector4~2   ; |kt|Selector4~2   ; out0             ;
+; |kt|Selector5~0   ; |kt|Selector5~0   ; out0             ;
+; |kt|Selector5~1   ; |kt|Selector5~1   ; out0             ;
+; |kt|Selector5~2   ; |kt|Selector5~2   ; out0             ;
+; |kt|Selector6~0   ; |kt|Selector6~0   ; out0             ;
+; |kt|Selector6~1   ; |kt|Selector6~1   ; out0             ;
+; |kt|Selector6~2   ; |kt|Selector6~2   ; out0             ;
+; |kt|Selector7~0   ; |kt|Selector7~0   ; out0             ;
+; |kt|Selector7~1   ; |kt|Selector7~1   ; out0             ;
+; |kt|Selector7~2   ; |kt|Selector7~2   ; out0             ;
+; |kt|Selector8~0   ; |kt|Selector8~0   ; out0             ;
+; |kt|Selector8~1   ; |kt|Selector8~1   ; out0             ;
+; |kt|Selector8~2   ; |kt|Selector8~2   ; out0             ;
+; |kt|Selector9~0   ; |kt|Selector9~0   ; out0             ;
+; |kt|Selector9~1   ; |kt|Selector9~1   ; out0             ;
+; |kt|Selector9~2   ; |kt|Selector9~2   ; out0             ;
+; |kt|Selector10~0  ; |kt|Selector10~0  ; out0             ;
+; |kt|Selector10~1  ; |kt|Selector10~1  ; out0             ;
+; |kt|Selector10~2  ; |kt|Selector10~2  ; out0             ;
+; |kt|Selector11~0  ; |kt|Selector11~0  ; out0             ;
+; |kt|Selector11~1  ; |kt|Selector11~1  ; out0             ;
+; |kt|Selector11~2  ; |kt|Selector11~2  ; out0             ;
+; |kt|Selector12~0  ; |kt|Selector12~0  ; out0             ;
+; |kt|Selector12~1  ; |kt|Selector12~1  ; out0             ;
+; |kt|Selector12~2  ; |kt|Selector12~2  ; out0             ;
+; |kt|Selector13~0  ; |kt|Selector13~0  ; out0             ;
+; |kt|Selector13~1  ; |kt|Selector13~1  ; out0             ;
+; |kt|Selector13~2  ; |kt|Selector13~2  ; out0             ;
+; |kt|Selector14~1  ; |kt|Selector14~1  ; out0             ;
+; |kt|Selector15~1  ; |kt|Selector15~1  ; out0             ;
+; |kt|Selector16~1  ; |kt|Selector16~1  ; out0             ;
+; |kt|Selector17~1  ; |kt|Selector17~1  ; out0             ;
+; |kt|Selector18~1  ; |kt|Selector18~1  ; out0             ;
+; |kt|Selector19~1  ; |kt|Selector19~1  ; out0             ;
+; |kt|Selector20~1  ; |kt|Selector20~1  ; out0             ;
+; |kt|Selector21~1  ; |kt|Selector21~1  ; out0             ;
+; |kt|Selector21~2  ; |kt|Selector21~2  ; out0             ;
+; |kt|Selector22~1  ; |kt|Selector22~1  ; out0             ;
+; |kt|Selector22~2  ; |kt|Selector22~2  ; out0             ;
+; |kt|Selector23~0  ; |kt|Selector23~0  ; out0             ;
+; |kt|Selector23~1  ; |kt|Selector23~1  ; out0             ;
+; |kt|Selector23~2  ; |kt|Selector23~2  ; out0             ;
+; |kt|Selector23~3  ; |kt|Selector23~3  ; out0             ;
+; |kt|Selector23~4  ; |kt|Selector23~4  ; out0             ;
+; |kt|Selector24~0  ; |kt|Selector24~0  ; out0             ;
+; |kt|Selector24~1  ; |kt|Selector24~1  ; out0             ;
+; |kt|Selector24~2  ; |kt|Selector24~2  ; out0             ;
+; |kt|Selector24~3  ; |kt|Selector24~3  ; out0             ;
+; |kt|Selector24~4  ; |kt|Selector24~4  ; out0             ;
+; |kt|Add0~9        ; |kt|Add0~9        ; out0             ;
+; |kt|Add0~10       ; |kt|Add0~10       ; out0             ;
+; |kt|Add0~11       ; |kt|Add0~11       ; out0             ;
+; |kt|Add0~12       ; |kt|Add0~12       ; out0             ;
+; |kt|Add0~13       ; |kt|Add0~13       ; out0             ;
+; |kt|Add0~14       ; |kt|Add0~14       ; out0             ;
+; |kt|Add0~15       ; |kt|Add0~15       ; out0             ;
+; |kt|Add0~16       ; |kt|Add0~16       ; out0             ;
+; |kt|Add0~17       ; |kt|Add0~17       ; out0             ;
+; |kt|Add0~18       ; |kt|Add0~18       ; out0             ;
+; |kt|Add0~19       ; |kt|Add0~19       ; out0             ;
+; |kt|Add0~20       ; |kt|Add0~20       ; out0             ;
+; |kt|Add0~21       ; |kt|Add0~21       ; out0             ;
+; |kt|Add0~22       ; |kt|Add0~22       ; out0             ;
+; |kt|Add0~23       ; |kt|Add0~23       ; out0             ;
+; |kt|Add0~24       ; |kt|Add0~24       ; out0             ;
+; |kt|Add0~25       ; |kt|Add0~25       ; out0             ;
+; |kt|Add0~26       ; |kt|Add0~26       ; out0             ;
+; |kt|Add0~27       ; |kt|Add0~27       ; out0             ;
+; |kt|Add0~28       ; |kt|Add0~28       ; out0             ;
+; |kt|Add0~29       ; |kt|Add0~29       ; out0             ;
+; |kt|Add0~30       ; |kt|Add0~30       ; out0             ;
+; |kt|Add0~31       ; |kt|Add0~31       ; out0             ;
+; |kt|Add0~32       ; |kt|Add0~32       ; out0             ;
+; |kt|Add0~33       ; |kt|Add0~33       ; out0             ;
+; |kt|Add0~34       ; |kt|Add0~34       ; out0             ;
+; |kt|Add0~35       ; |kt|Add0~35       ; out0             ;
+; |kt|Add0~36       ; |kt|Add0~36       ; out0             ;
+; |kt|Equal0~0      ; |kt|Equal0~0      ; out0             ;
++-------------------+-------------------+------------------+
+
+
++---------------------+
+; Simulator INI Usage ;
++--------+------------+
+; Option ; Usage      ;
++--------+------------+
+
+
++--------------------+
+; Simulator Messages ;
++--------------------+
+Info: *******************************************************************
+Info: Running Quartus II 64-Bit Simulator
+    Info: Version 13.0.0 Build 156 04/24/2013 SJ Full Version
+    Info: Processing started: Tue Nov 10 11:30:19 2026
+Info: Command: quartus_sim --simulation_results_format=VWF kt -c kt_qsim
+Info (324025): Using vector source file "F:/Temp/keyboard_test/output_files/Waveform.vwf"
+Info (310003): Option to preserve fewer signal transitions to reduce memory requirements is enabled
+    Info (310004): Simulation has been partitioned into sub-simulations according to the maximum transition count determined by the engine. Transitions from memory will be flushed out to disk at the end of each sub-simulation to reduce memory requirements.
+Warning (324036): Found clock-sensitive change during active clock edge at time 170.0 ns on register "|kt|sync[0]"
+Info (310002): Simulation partitioned into 1 sub-simulations
+Info (328053): Simulation coverage is      31.71 %
+Info (328052): Number of transitions in simulation is 1297
+Info (324045): Vector file kt_qsim.sim.vwf is saved in VWF text format. You can compress it into CVWF format in order to reduce file size. For more details please refer to the Quartus II Help.
+Info: Quartus II 64-Bit Simulator was successful. 0 errors, 1 warning
+    Info: Peak virtual memory: 4452 megabytes
+    Info: Processing ended: Tue Nov 10 11:30:19 2026
+    Info: Elapsed time: 00:00:00
+    Info: Total CPU time (on all processors): 00:00:00
+
+
