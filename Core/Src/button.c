@@ -84,9 +84,19 @@ static uint16_t s_buttonBits = 0u;
 static uint16_t s_sentBits = 0u;
 static uint8_t s_sentValid = 1u;
 
+/* SOCD 后按优先模式：记录水平方向最近一次被按下的方向 */
+#define BUTTON_DIR_NONE  0u
+#define BUTTON_DIR_RIGHT 1u
+#define BUTTON_DIR_LEFT  2u
+
+#if (BUTTON_SOCD_MODE == BUTTON_SOCD_LAST_INPUT)
+static uint8_t s_socdLastHorz = BUTTON_DIR_NONE;
+#endif
+
 /* Private function prototypes -----------------------------------------------*/
 static uint8_t Button_ReadRaw(uint8_t index);
 static void Button_UpdateState(uint8_t index, uint8_t rawActive);
+static uint16_t Button_ApplySocd(uint16_t rawBits);
 static void Button_ReportTask(void);
 
 /* Exported functions --------------------------------------------------------*/
@@ -142,6 +152,9 @@ void Button_Scan(void)
             bits |= (uint16_t)(1u << i);
         }
     }
+
+    /* SOCD 清洗：同时按下相反方向时，按 BUTTON_SOCD_MODE 规则只保留一个方向 */
+    bits = Button_ApplySocd(bits);
 
     if (bits != s_buttonBits)
     {
@@ -255,6 +268,63 @@ static void Button_UpdateState(uint8_t index, uint8_t rawActive)
             }
             break;
     }
+}
+
+/**
+  * @brief  SOCD 清洗：同时按下相反方向时的确定化处理
+  * @param  rawBits: 消抖后的原始按键位图
+  * @retval 清洗后的按键位图（将被打包上报）
+  */
+static uint16_t Button_ApplySocd(uint16_t rawBits)
+{
+    uint16_t out = rawBits;
+    uint8_t right = ((rawBits & (1u << BUTTON_BIT_MOVE_RIGHT)) != 0u) ? 1u : 0u;
+    uint8_t left  = ((rawBits & (1u << BUTTON_BIT_MOVE_LEFT))  != 0u) ? 1u : 0u;
+    uint8_t up    = ((rawBits & (1u << BUTTON_BIT_MOVE_UP))    != 0u) ? 1u : 0u;
+    uint8_t down  = ((rawBits & (1u << BUTTON_BIT_MOVE_DOWN))  != 0u) ? 1u : 0u;
+
+#if (BUTTON_SOCD_MODE == BUTTON_SOCD_LAST_INPUT)
+    /* 记录"最近一次新按下的水平方向"（两侧同时按住时保持上一次记录） */
+    if ((right != 0u) && (left == 0u))
+    {
+        s_socdLastHorz = BUTTON_DIR_RIGHT;
+    }
+    else if ((left != 0u) && (right == 0u))
+    {
+        s_socdLastHorz = BUTTON_DIR_LEFT;
+    }
+#endif
+
+    /* 水平方向：左右同时按下 */
+    if ((right != 0u) && (left != 0u))
+    {
+#if (BUTTON_SOCD_MODE == BUTTON_SOCD_LAST_INPUT)
+        if (s_socdLastHorz == BUTTON_DIR_RIGHT)
+        {
+            out &= (uint16_t)~(1u << BUTTON_BIT_MOVE_LEFT);
+        }
+        else if (s_socdLastHorz == BUTTON_DIR_LEFT)
+        {
+            out &= (uint16_t)~(1u << BUTTON_BIT_MOVE_RIGHT);
+        }
+        else
+        {
+            /* 同一扫描周期同时按下：无法判定先后，按中和处理 */
+            out &= (uint16_t)~((1u << BUTTON_BIT_MOVE_LEFT) | (1u << BUTTON_BIT_MOVE_RIGHT));
+        }
+#else
+        /* NEUTRAL：左右同按 -> 中和 */
+        out &= (uint16_t)~((1u << BUTTON_BIT_MOVE_LEFT) | (1u << BUTTON_BIT_MOVE_RIGHT));
+#endif
+    }
+
+    /* 垂直方向：上下同时按下 -> 上优先（CPT 规则，避免出现蹲防+跳的异常） */
+    if ((up != 0u) && (down != 0u))
+    {
+        out &= (uint16_t)~(1u << BUTTON_BIT_MOVE_DOWN);
+    }
+
+    return out;
 }
 
 /**

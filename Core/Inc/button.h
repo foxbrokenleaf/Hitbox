@@ -48,6 +48,24 @@ extern "C" {
  *   - 按键另一端接 VCC        ：引脚内部下拉（GPIO_PULLDOWN）+ GPIO_PIN_SET */
 #define BUTTON_ACTIVE_LEVEL GPIO_PIN_RESET
 
+/* 方向键位号（必须与 button.c 中 s_buttonPin[] 的 MOVE_* 顺序一致，SOCD 处理使用） */
+#define BUTTON_BIT_MOVE_RIGHT 0u
+#define BUTTON_BIT_MOVE_DOWN  1u
+#define BUTTON_BIT_MOVE_LEFT  2u
+#define BUTTON_BIT_MOVE_UP    3u
+
+/* SOCD（Simultaneous Opposite Cardinal Direction，同时按下相反方向）处理模式：
+ *   BUTTON_SOCD_NEUTRAL    : 左右同按 -> 中和（两个方向都上报 0）；上下同按 -> 只上报上
+ *   BUTTON_SOCD_LAST_INPUT : 左右同按 -> 后按下的方向生效；上下同按 -> 只上报上
+ * 说明：Street Fighter 6 等格斗游戏自身对"左右同按"也会做确定化处理（通常中和为 0），
+ *       所以 NEUTRAL 模式与游戏内表现一致；若想得到 hitbox 常见的"后按优先"，改成 LAST_INPUT。 */
+#define BUTTON_SOCD_NEUTRAL    1
+#define BUTTON_SOCD_LAST_INPUT 2
+
+#ifndef BUTTON_SOCD_MODE
+#define BUTTON_SOCD_MODE BUTTON_SOCD_NEUTRAL
+#endif
+
 /* Exported variables --------------------------------------------------------*/
 /* GC 手柄上报缓冲区：固定字段 + 16 个按键位 */
 extern uint8_t GC_Report_Buf[GC_REPORT_SIZE];
