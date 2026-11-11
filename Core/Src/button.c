@@ -27,6 +27,24 @@
 #include "led.h"
 #include "usbd_custom_hid_if.h"
 
+/* 轴极性推导：根据 BUTTON_AXIS_X_INVERT / BUTTON_AXIS_Y_INVERT，决定每个方向的满量程字节 */
+#if (BUTTON_AXIS_ENABLE != 0u)
+#  if (BUTTON_AXIS_X_INVERT != 0u)
+#    define BUTTON_AXIS_X_RIGHT BUTTON_AXIS_MIN
+#    define BUTTON_AXIS_X_LEFT  BUTTON_AXIS_MAX
+#  else
+#    define BUTTON_AXIS_X_RIGHT BUTTON_AXIS_MAX
+#    define BUTTON_AXIS_X_LEFT  BUTTON_AXIS_MIN
+#  endif
+#  if (BUTTON_AXIS_Y_INVERT != 0u)
+#    define BUTTON_AXIS_Y_UP    BUTTON_AXIS_MAX
+#    define BUTTON_AXIS_Y_DOWN  BUTTON_AXIS_MIN
+#  else
+#    define BUTTON_AXIS_Y_UP    BUTTON_AXIS_MIN
+#    define BUTTON_AXIS_Y_DOWN  BUTTON_AXIS_MAX
+#  endif
+#endif
+
 /* Private typedef -----------------------------------------------------------*/
 /* 按键状态机状态 */
 typedef enum
@@ -343,14 +361,46 @@ static void Button_ReportTask(void)
         return; /* USB 尚未枚举完成，保持待发送状态，下一个扫描周期重试 */
     }
 
-    /* 打包上报：固定字段 + 16 个按键 */
+    /* 打包上报：固定字段 + 16 个按键 + 4 个方向轴 */
     GC_Report_Buf[0] = GC_REPORT_ID;                           /* 固定 0x04 */
     GC_Report_Buf[1] = (uint8_t)(s_buttonBits & 0xFFu);        /* 按键 1~8  */
     GC_Report_Buf[2] = (uint8_t)((s_buttonBits >> 8) & 0xFFu); /* 按键 9~16 */
-    GC_Report_Buf[3] = 0x00;
-    GC_Report_Buf[4] = 0x00;
-    GC_Report_Buf[5] = 0x00;
-    GC_Report_Buf[6] = 0x00;
+
+#if (BUTTON_AXIS_ENABLE != 0u)
+    /* X 轴（左右）：默认 右 = 0x7F(+127)、左 = 0x81(-127) */
+    if ((s_buttonBits & (uint16_t)(1u << BUTTON_BIT_MOVE_RIGHT)) != 0u)
+    {
+        GC_Report_Buf[3] = (uint8_t)BUTTON_AXIS_X_RIGHT;
+    }
+    else if ((s_buttonBits & (uint16_t)(1u << BUTTON_BIT_MOVE_LEFT)) != 0u)
+    {
+        GC_Report_Buf[3] = (uint8_t)BUTTON_AXIS_X_LEFT;
+    }
+    else
+    {
+        GC_Report_Buf[3] = (uint8_t)BUTTON_AXIS_CENTER;   /* 松开：回中 */
+    }
+
+    /* Y 轴（上下）：默认 上 = 0x81(-127)、下 = 0x7F(+127)（HID 的 Y 正方向朝下） */
+    if ((s_buttonBits & (uint16_t)(1u << BUTTON_BIT_MOVE_UP)) != 0u)
+    {
+        GC_Report_Buf[4] = (uint8_t)BUTTON_AXIS_Y_UP;
+    }
+    else if ((s_buttonBits & (uint16_t)(1u << BUTTON_BIT_MOVE_DOWN)) != 0u)
+    {
+        GC_Report_Buf[4] = (uint8_t)BUTTON_AXIS_Y_DOWN;
+    }
+    else
+    {
+        GC_Report_Buf[4] = (uint8_t)BUTTON_AXIS_CENTER;   /* 松开：回中 */
+    }
+#else
+    GC_Report_Buf[3] = BUTTON_AXIS_CENTER;   /* 轴输出已关闭：X 轴恒回中 */
+    GC_Report_Buf[4] = BUTTON_AXIS_CENTER;   /* 轴输出已关闭：Y 轴恒回中 */
+#endif
+
+    GC_Report_Buf[5] = 0x00;   /* Z 轴  未使用 */
+    GC_Report_Buf[6] = 0x00;   /* Rz 轴 未使用 */
 
     if (USBD_CUSTOM_HID_SendReport_FS(GC_Report_Buf, GC_REPORT_SIZE) == USBD_OK)
     {

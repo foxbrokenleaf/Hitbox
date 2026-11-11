@@ -240,16 +240,16 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LED_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : MOVE_Right_Pin MOVE_Down_Pin MOVE_Left_Pin MOVE_Up_Pin
+  /*Configure GPIO pins : MOVE_Left_Pin MOVE_Down_Pin MOVE_Right_Pin MOVE_Up_Pin
                            BT_A_Pin BT_B_Pin BT_C_Pin BT_D_Pin
                            BT_E_Pin BT_F_Pin BT_G_Pin BT_H_Pin
                            BT_I_Pin */
-  GPIO_InitStruct.Pin = MOVE_Right_Pin|MOVE_Down_Pin|MOVE_Left_Pin|MOVE_Up_Pin
+  GPIO_InitStruct.Pin = MOVE_Left_Pin|MOVE_Down_Pin|MOVE_Right_Pin|MOVE_Up_Pin
                           |BT_A_Pin|BT_B_Pin|BT_C_Pin|BT_D_Pin
                           |BT_E_Pin|BT_F_Pin|BT_G_Pin|BT_H_Pin
                           |BT_I_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_PULLUP;   /* 按键对地：内部上拉，未按下读高，按下读低 */
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
