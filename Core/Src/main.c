@@ -23,6 +23,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "usbd_custom_hid_if.h"
+#include "button.h"
+#include "led.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -44,7 +46,8 @@
 TIM_HandleTypeDef htim2;
 
 /* USER CODE BEGIN PV */
-uint8_t GC_Report_Buf[7] = {0x00};
+/* 按键扫描节拍（1ms） */
+static uint32_t s_buttonScanTick = 0u;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -77,13 +80,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-  GC_Report_Buf[0] = 0x04;
-  GC_Report_Buf[1] = 0x05;
-  GC_Report_Buf[2] = 0x81;
-  GC_Report_Buf[3] = 0x00;
-  GC_Report_Buf[4] = 0x00;
-  GC_Report_Buf[5] = 0x00;
-  GC_Report_Buf[6] = 0x00;
+  /* GC_Report_Buf 固定字段与按键状态机由 Button_Init() 初始化 */
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -98,7 +95,13 @@ int main(void)
   MX_USB_DEVICE_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
+  /* 调试 LED：上电闪 3 次（约 0.6s），确认固件在运行且 LED 极性正确 */
+  LED_Init();
+  LED_Blink(3u, 80u, 120u);
 
+  /* 初始化按键状态机与 GC_Report_Buf */
+  Button_Init();
+  s_buttonScanTick = HAL_GetTick();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -108,6 +111,12 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    /* 1ms 扫描一次：状态机消抖，按下时零延迟打包 GC_Report_Buf 并通过 USB 发送 */
+    if (HAL_GetTick() != s_buttonScanTick)
+    {
+      s_buttonScanTick = HAL_GetTick();
+      Button_Scan();
+    }
   }
   /* USER CODE END 3 */
 }
@@ -216,9 +225,20 @@ static void MX_GPIO_Init(void)
   /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin : LED_Pin */
+  GPIO_InitStruct.Pin = LED_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(LED_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : MOVE_Right_Pin MOVE_Down_Pin MOVE_Left_Pin MOVE_Up_Pin
                            BT_A_Pin BT_B_Pin BT_C_Pin BT_D_Pin
@@ -229,7 +249,7 @@ static void MX_GPIO_Init(void)
                           |BT_E_Pin|BT_F_Pin|BT_G_Pin|BT_H_Pin
                           |BT_I_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;   /* 按键对地：内部上拉，未按下读高，按下读低 */
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
